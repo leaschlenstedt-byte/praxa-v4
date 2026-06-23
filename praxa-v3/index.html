@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRAXA Skills — Drei Gespräche</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --warm:#faf6f0;
+  --ink:#1c1612;
+  --mid:#7a6e62;
+  --light:#c4b8aa;
+  --rule:rgba(28,22,18,0.1);
+  --maria:#3d5a47; /* forest green */
+  --lukas:#4a5f7a; /* steel blue */
+  --sandra:#7a3d3d; /* deep rust */
+}
+body{font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--ink);-webkit-font-smoothing:antialiased;}
+
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:22px 48px;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(250,246,240,0.95);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+.logo{font-family:'Lora',serif;font-size:18px;font-weight:400;font-style:italic;color:var(--ink);text-decoration:none;}
+.lang-btn{font-size:11px;color:var(--light);background:none;border:none;cursor:pointer;letter-spacing:1px;text-transform:uppercase;font-family:'DM Sans',sans-serif;}
+.lang-btn:hover{color:var(--mid);}
+
+/* EACH STORY = 100VH */
+.story{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  padding-top:70px;
+  border-bottom:1px solid var(--rule);
+}
+.story-left{
+  padding:80px 56px;
+  display:flex;flex-direction:column;justify-content:center;
+  border-right:1px solid var(--rule);
+  position:sticky;top:70px;height:calc(100vh - 70px);
+}
+.story-right{
+  padding:80px 56px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+
+/* color accent per person */
+.story.maria .story-left{background:rgba(61,90,71,0.04);}
+.story.lukas .story-left{background:rgba(74,95,122,0.04);}
+.story.sandra .story-left{background:rgba(122,61,61,0.04);}
+
+.person-tag{
+  font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:32px;display:flex;align-items:center;gap:12px;
+}
+.person-tag::before{content:'';width:32px;height:1px;display:block;}
+.story.maria .person-tag{color:var(--maria);}
+.story.maria .person-tag::before{background:var(--maria);}
+.story.lukas .person-tag{color:var(--lukas);}
+.story.lukas .person-tag::before{background:var(--lukas);}
+.story.sandra .person-tag{color:var(--sandra);}
+.story.sandra .person-tag::before{background:var(--sandra);}
+
+.person-name{
+  font-family:'Lora',serif;
+  font-size:clamp(36px,5vw,64px);font-weight:400;
+  line-height:1.05;letter-spacing:-1px;
+  color:var(--ink);margin-bottom:16px;
+}
+.person-role{font-size:15px;font-weight:300;color:var(--mid);line-height:1.6;max-width:280px;}
+
+/* The monologue on the right */
+.monologue{
+  font-family:'Lora',serif;
+  font-size:clamp(16px,2vw,20px);
+  font-style:italic;
+  line-height:1.85;
+  color:var(--ink);
+  margin-bottom:40px;
+  max-width:520px;
+}
+.monologue em{font-style:normal;font-weight:500;}
+
+.outcome{
+  padding:24px 28px;
+  border-left:2px solid currentColor;
+  font-size:14px;font-weight:300;color:var(--mid);line-height:1.7;
+  max-width:480px;
+}
+.story.maria .outcome{border-color:var(--maria);color:var(--maria);}
+.story.lukas .outcome{border-color:var(--lukas);color:var(--lukas);}
+.story.sandra .outcome{border-color:var(--sandra);color:var(--sandra);}
+
+/* FINAL — minimal pricing + cta */
+.final{padding:120px 48px;max-width:960px;margin:0 auto;}
+.final-opener{
+  font-family:'Lora',serif;
+  font-size:clamp(28px,4vw,52px);
+  font-weight:400;font-style:italic;
+  color:var(--ink);line-height:1.15;letter-spacing:-0.5px;
+  margin-bottom:64px;max-width:700px;
+}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--rule);}
+.plan{padding:40px 32px;border-right:1px solid var(--rule);}
+.plan:last-child{border-right:none;}
+.plan.mid{background:var(--ink);color:var(--warm);}
+.pname{font-family:'Lora',serif;font-size:22px;font-weight:400;margin-bottom:6px;}
+.plan.mid .pname{color:var(--warm);}
+.pfor{font-size:13px;color:var(--mid);margin-bottom:24px;line-height:1.5;}
+.plan.mid .pfor{color:rgba(250,246,240,0.5);}
+.pprice{font-size:13px;color:var(--light);margin-bottom:24px;}
+.plan.mid .pprice{color:rgba(250,246,240,0.35);}
+.pfeats{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:28px;}
+.pfeats li{font-size:13px;color:var(--mid);padding-left:14px;position:relative;}
+.pfeats li::before{content:'—';position:absolute;left:0;color:var(--light);}
+.plan.mid .pfeats li{color:rgba(250,246,240,0.6);}
+.pbtn{display:block;text-align:center;padding:12px;font-size:13px;color:var(--ink);text-decoration:none;border:1px solid var(--rule);transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.pbtn:hover{background:var(--ink);color:var(--warm);border-color:var(--ink);}
+.plan.mid .pbtn{border-color:rgba(250,246,240,0.2);color:var(--warm);}
+.plan.mid .pbtn:hover{background:rgba(250,246,240,0.08);}
+
+footer{border-top:1px solid var(--rule);padding:32px 48px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+footer a{font-size:12px;color:var(--light);text-decoration:none;}
+.fc{font-size:11px;color:var(--light);}
+
+@media(max-width:800px){
+  .story{grid-template-columns:1fr;}
+  .story-left{position:static;height:auto;padding:60px 24px 40px;}
+  .story-right{padding:0 24px 60px;}
+  nav,.final,footer{padding-left:24px;padding-right:24px;}
+  .plans{grid-template-columns:1fr;}
+  .plan{border-right:none;border-bottom:1px solid var(--rule);}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">PRAXA Skills</a>
+  <button class="lang-btn" onclick="toggleLang()">DE / EN</button>
+</nav>
+
+<!-- STORY 1: MARIA -->
+<section class="story maria">
+  <div class="story-left">
+    <div class="person-tag" id="m-tag">Pflegefachkraft</div>
+    <h2 class="person-name">Maria<br>Vasquez</h2>
+    <p class="person-role" id="m-role">34 Jahre. B2-Deutsch. Intensivstation, München. Seit drei Jahren in Deutschland.</p>
+  </div>
+  <div class="story-right">
+    <p class="monologue" id="m-mono">
+      „Die Tochter wartet draußen. Ich weiß, was ich sagen muss — Palliativpflege, keine kurativen Maßnahmen mehr. Ich weiß es auf Deutsch. Ich habe die Wörter. Aber ich habe <em>das Gespräch</em> noch nie geführt. Nicht auf Deutsch. Nicht mit jemandem, der weint, bevor ich angefangen habe zu sprechen."
+    </p>
+    <div class="outcome" id="m-out">
+      Mit PRAXA Skills hat Maria dasselbe Gespräch siebenmal geführt — unterschiedliche Reaktionen, unterschiedliche Eskalationen — bevor sie der echten Tochter gegenüberstand. Trainiert auf dem Qualitätshandbuch ihrer Einrichtung.
+    </div>
+  </div>
+</section>
+
+<!-- STORY 2: LUKAS -->
+<section class="story lukas">
+  <div class="story-left">
+    <div class="person-tag" id="l-tag">Auszubildender</div>
+    <h2 class="person-name">Lukas<br>Brenner</h2>
+    <p class="person-role" id="l-role">17 Jahre. 2. Lehrjahr. Anlagenmechaniker, Mittelstand-Betrieb, Augsburg.</p>
+  </div>
+  <div class="story-right">
+    <p class="monologue" id="l-mono">
+      „Ab nächsten Monat nehme ich die Kundenanrufe an. Herr Katzenberger hat mir gezeigt, wie das Telefon funktioniert. Das war's. Er hat zwölf Mitarbeiter und keine Zeit. Ich habe noch nie einem Kunden erklärt, warum sein Auftrag drei Wochen Verspätung hat. Ich weiß nicht mal, wie ich anfangen soll."
+    </p>
+    <div class="outcome" id="l-out">
+      Lukas hat täglich 15 Minuten in der Mittagspause geübt — auf dem Betriebstablet, ohne Ausbilderstunden. Als der erste echte Anruf kam, wusste er, wie er eröffnet, wie er Rückfragen stellt und wie er Unsicherheit nicht weitergibits.
+    </div>
+  </div>
+</section>
+
+<!-- STORY 3: SANDRA -->
+<section class="story sandra">
+  <div class="story-left">
+    <div class="person-tag" id="s-tag">Teamleiterin</div>
+    <h2 class="person-name">Sandra<br>Moll</h2>
+    <p class="person-role" id="s-role">41 Jahre. Seit 8 Monaten Teamleiterin. Vorher 12 Jahre Fachkraft. Erstmals Führungsverantwortung.</p>
+  </div>
+  <div class="story-right">
+    <p class="monologue" id="s-mono">
+      „Ich habe das Gespräch zweimal verschoben. Einmal wegen Krankmeldung, einmal weil ich ehrlich gesagt Angst hatte. Was passiert, wenn er sagt: ‚Dann rufe ich den Betriebsrat'? Ich kenne unsere Betriebsvereinbarung. Ich kenne die Zahlen. Aber ich habe <em>keine Ahnung</em>, wie ich reagiere, wenn er anfängt zu weinen."
+    </p>
+    <div class="outcome" id="s-out">
+      Sandra hat mit PRAXA Skills eine Version dieses Gesprächs geübt, bei der der Mitarbeiter tatsächlich weint, eine bei der er den Betriebsrat erwähnt, und eine bei der er abstreitet, dass es die Zahlen gibt. Sie hat alle drei geführt — bevor das echte Gespräch stattfand.
+    </div>
+  </div>
+</section>
+
+<!-- PRICING + CTA -->
+<section class="final">
+  <p class="final-opener" id="final-opener">
+    Jede Organisation hat ihre Maria, ihren Lukas, ihre Sandra.<br>
+    Geben Sie ihnen den Raum zum Üben.
+  </p>
+  <div class="plans">
+    <div class="plan">
+      <div class="pname" id="pn1">Starter</div>
+      <div class="pfor" id="pf1">Kleine Teams · bis 25 Lernende</div>
+      <div class="pprice" id="ppr1">Preis auf Anfrage</div>
+      <ul class="pfeats"><li id="pfl1-1">200+ Berufsgespräche</li><li id="pfl1-2">Sprache & Text</li><li id="pfl1-3">Feedback & Dashboard</li></ul>
+      <a href="mailto:hello@praxa.de" class="pbtn" id="pb1">30-Minuten-Demo buchen</a>
+    </div>
+    <div class="plan mid">
+      <div class="pname" id="pn2">Professional</div>
+      <div class="pfor" id="pf2">L&D-Teams · bis 250 Lernende</div>
+      <div class="pprice" id="ppr2">Preis auf Anfrage</div>
+      <ul class="pfeats"><li id="pfl2-1">+ Eigene Richtlinien</li><li id="pfl2-2">Team-Reporting</li><li id="pfl2-3">LMS</li></ul>
+      <a href="mailto:hello@praxa.de" class="pbtn" id="pb2">30-Minuten-Demo buchen</a>
+    </div>
+    <div class="plan">
+      <div class="pname" id="pn3">Enterprise</div>
+      <div class="pfor" id="pf3">Verbände & große Org.</div>
+      <div class="pprice" id="ppr3">Individuell</div>
+      <ul class="pfeats"><li id="pfl3-1">White-Label</li><li id="pfl3-2">API</li><li id="pfl3-3">SLA</li></ul>
+      <a href="mailto:hello@praxa.de" class="pbtn" id="pb3">Anfragen</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div style="display:flex;gap:24px;"><a href="#" id="fl1">Datenschutz</a><a href="#" id="fl2">Impressum</a><a href="mailto:hello@praxa.de">hello@praxa.de</a></div>
+  <span class="fc" id="fc">© 2026 PRAXA Skills · EU-gehostet · Made in Bavaria</span>
+</footer>
+
+<script>
+const T = {
+  de:{
+    'm-tag':'Pflegefachkraft',
+    'm-role':'34 Jahre. B2-Deutsch. Intensivstation, München. Seit drei Jahren in Deutschland.',
+    'm-mono':'„Die Tochter wartet draußen. Ich weiß, was ich sagen muss — Palliativpflege, keine kurativen Maßnahmen mehr. Ich weiß es auf Deutsch. Ich habe die Wörter. Aber ich habe <em>das Gespräch</em> noch nie geführt. Nicht auf Deutsch. Nicht mit jemandem, der weint, bevor ich angefangen habe zu sprechen."',
+    'm-out':'Mit PRAXA Skills hat Maria dasselbe Gespräch siebenmal geführt — unterschiedliche Reaktionen, unterschiedliche Eskalationen — bevor sie der echten Tochter gegenüberstand. Trainiert auf dem Qualitätshandbuch ihrer Einrichtung.',
+    'l-tag':'Auszubildender',
+    'l-role':'17 Jahre. 2. Lehrjahr. Anlagenmechaniker, Mittelstand-Betrieb, Augsburg.',
+    'l-mono':'„Ab nächsten Monat nehme ich die Kundenanrufe an. Herr Katzenberger hat mir gezeigt, wie das Telefon funktioniert. Das war\'s. Er hat zwölf Mitarbeiter und keine Zeit. Ich habe noch nie einem Kunden erklärt, warum sein Auftrag drei Wochen Verspätung hat. Ich weiß nicht mal, wie ich anfangen soll."',
+    'l-out':'Lukas hat täglich 15 Minuten in der Mittagspause geübt — auf dem Betriebstablet, ohne Ausbilderstunden. Als der erste echte Anruf kam, wusste er, wie er eröffnet, wie er Rückfragen stellt und wie er Unsicherheit nicht weitergibt.',
+    's-tag':'Teamleiterin',
+    's-role':'41 Jahre. Seit 8 Monaten Teamleiterin. Vorher 12 Jahre Fachkraft. Erstmals Führungsverantwortung.',
+    's-mono':'„Ich habe das Gespräch zweimal verschoben. Einmal wegen Krankmeldung, einmal weil ich ehrlich gesagt Angst hatte. Was passiert, wenn er sagt: ‚Dann rufe ich den Betriebsrat\'? Ich kenne unsere Betriebsvereinbarung. Ich kenne die Zahlen. Aber ich habe <em>keine Ahnung</em>, wie ich reagiere, wenn er anfängt zu weinen."',
+    's-out':'Sandra hat mit PRAXA Skills eine Version dieses Gesprächs geübt, bei der der Mitarbeiter tatsächlich weint, eine bei der er den Betriebsrat erwähnt, und eine bei der er abstreitet, dass es die Zahlen gibt. Sie hat alle drei geführt — bevor das echte Gespräch stattfand.',
+    'final-opener':'Jede Organisation hat ihre Maria, ihren Lukas, ihre Sandra.<br>Geben Sie ihnen den Raum zum Üben.',
+    'pn1':'Starter','pf1':'Kleine Teams · bis 25 Lernende','ppr1':'Preis auf Anfrage','pfl1-1':'200+ Berufsgespräche','pfl1-2':'Sprache & Text','pfl1-3':'Feedback & Dashboard','pb1':'30-Minuten-Demo buchen',
+    'pn2':'Professional','pf2':'L&D-Teams · bis 250 Lernende','ppr2':'Preis auf Anfrage','pfl2-1':'+ Eigene Richtlinien','pfl2-2':'Team-Reporting','pfl2-3':'LMS','pb2':'30-Minuten-Demo buchen',
+    'pn3':'Enterprise','pf3':'Verbände & große Org.','ppr3':'Individuell','pfl3-1':'White-Label','pfl3-2':'API','pfl3-3':'SLA','pb3':'Anfragen',
+    'fl1':'Datenschutz','fl2':'Impressum','fc':'© 2026 PRAXA Skills · EU-gehostet · Made in Bavaria',
+  },
+  en:{
+    'm-tag':'Care professional',
+    'm-role':'Age 34. B2 German. ICU, Munich. Three years in Germany.',
+    'm-mono':'"The daughter is waiting outside. I know what I have to say — palliative care, no further curative measures. I know the words in German. But I\'ve <em>never had this conversation</em>. Not in German. Not with someone who starts crying before I\'ve even begun."',
+    'm-out':'With PRAXA Skills, Maria practiced the same conversation seven times — different reactions, different escalations — before she faced the real daughter. Trained on her facility\'s quality handbook.',
+    'l-tag':'Apprentice',
+    'l-role':'Age 17. 2nd year apprenticeship. Mechanical engineer, SME, Augsburg.',
+    'l-mono':'"Starting next month I\'ll be taking customer calls. Mr. Katzenberger showed me how the phone works. That was it. He has twelve employees and no time. I\'ve never explained to a customer why their order is three weeks late. I don\'t even know how to start."',
+    'l-out':'Lukas practiced for 15 minutes every day during lunch — on the company tablet, no trainer hours needed. When the first real call came, he knew how to open, how to ask clarifying questions, and how not to pass on his own uncertainty.',
+    's-tag':'Team lead',
+    's-role':'Age 41. Team lead for 8 months. Previously 12 years as a specialist. First management role.',
+    's-mono':'"I\'ve postponed the conversation twice. Once for a sick day, once because honestly I was afraid. What happens if he says \'I\'ll call the works council\'? I know our agreement. I know the numbers. But I have <em>no idea</em> how I\'ll react if he starts to cry."',
+    's-out':'Sandra used PRAXA Skills to practice a version where the employee cries, one where he mentions the works council, and one where he denies the numbers exist. She went through all three — before the real conversation happened.',
+    'final-opener':'Every organization has its Maria, its Lukas, its Sandra.<br>Give them the space to practice.',
+    'pn1':'Starter','pf1':'Small teams · up to 25 learners','ppr1':'Price on request','pfl1-1':'200+ professional conversations','pfl1-2':'Voice & text','pfl1-3':'Feedback & dashboard','pb1':'Book 30-min demo',
+    'pn2':'Professional','pf2':'L&D teams · up to 250 learners','ppr2':'Price on request','pfl2-1':'+ Custom policies','pfl2-2':'Team reporting','pfl2-3':'LMS','pb2':'Book 30-min demo',
+    'pn3':'Enterprise','pf3':'Associations & large orgs','ppr3':'Custom','pfl3-1':'White-label','pfl3-2':'API','pfl3-3':'SLA','pb3':'Contact',
+    'fl1':'Privacy','fl2':'Imprint','fc':'© 2026 PRAXA Skills · EU-hosted · Made in Bavaria',
+  }
+};
+let lang='de';
+function toggleLang(){
+  lang=lang==='de'?'en':'de';
+  document.documentElement.lang=lang;
+  Object.keys(T[lang]).forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=T[lang][id];});
+  document.querySelector('.lang-btn').textContent=lang==='de'?'DE / EN':'EN / DE';
+}
+</script>
+</body>
+</html>
